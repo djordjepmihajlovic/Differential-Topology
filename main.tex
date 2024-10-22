@@ -1,0 +1,126 @@
+\documentclass{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+\newtheorem{example}{Example}
+
+\title{Differential Topology}
+\author{Djordje Mihajlovic}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\centering
+(Arduously) concise notes on Differential Topology based on lectures and lecture notes by Prof.\ Murad Alim at Heriot Watt University.
+\end{abstract}
+
+\section{Smooth Manifolds}
+
+\subsection{The Differential.}
+
+The goals of section one are to introduce the following concepts that will be central to differential topology; smooth manifolds, smooth maps and tangent spaces.
+
+To begin, consider the following map:
+
+$$f: \Re^{2} \rightarrow \Re^{3}$$
+
+\begin{align}
+        \begin{bmatrix}
+           x \\
+           y \\
+         \end{bmatrix}
+         \rightarrow
+         \begin{bmatrix}
+             f_{1}(x, y) \\
+             f_{2} (x, y) \\
+             f_{3} (x, y)
+         \end{bmatrix} 
+         = 
+         \begin{bmatrix}
+             y^{2} \\ 
+             xy \\
+             x^{2}
+         \end{bmatrix}
+\end{align}
+
+We want to know properties of this map, specifically whether it is smooth, linear or Jacobian.
+
+\begin{definition}
+  Let $U \subset \Re^{m}$ and $V \subset \Re^{n}$ be open sets\footnote{An open set $U$ is a set in which $\forall P\in U; \exists x$ sufficiently near to P.}.
+  We consider the mapping $f: U \rightarrow V$ to be smooth iff it is infinitely differentiable. That is, all partial derivatives exist and it is continuous\footnote{A map is continuous iff the preimageof any open set, is open.}\footnote{The image of $x$ is given $f(x)$ $\therefore$ the preimage of $f^{-1}(y) = \{ x| f(x) = y \}$.}.
+\end{definition}
+
+\begin{definition}
+    For a smooth map
+    $f = (f_{1}, f_{2}, ..., f_{n}) : U \rightarrow V$ and the point $x \in U$, the derivative is defined by the linear map $df(x): \Re^{m} \rightarrow \Re^{n}$ defined via a small movement $\eta$ where $\eta \in \Re^{m}$ such that:
+    $$df(x) = \frac{f(x + t\eta) - f(x)}{t}$$
+\end{definition}
+
+Fixing the coordinates $(x_1, x_2, x_3, ..., x_n)$ the derivative is therefore defined via the Jacobian matrix:
+
+$$df(x)_{ij} = \frac{\partial f_{i}}{\partial x^{j}}(x)$$
+
+
+The differential satisfies several properties, namely:
+
+\begin{itemize}
+    \item Chain rule: \\ If $U \in \Re^{m}$, $V \in \Re^{n}, W \in \Re^{p}$ and f and g are specified smooth maps such that $f: U \rightarrow V$, $g: V \rightarrow W$ then: 
+    $$d(g \circ f) (x) = dg(f(x)) \circ df(x)$$
+
+    \item Identity: \\
+    Suppose the identity mapping $id_{U}: U \rightarrow U$, this has the differential:
+    $$d(id_{U}(x)) = id_{\Re^{m}}$$
+\end{itemize}
+
+\subsection{Smooth Manifolds}
+
+\begin{definition}
+        (Smooth m-Manifolds). A smooth m manifold is some space M equipped with an open cover $\{U_{\alpha}\}_{\alpha \in A}$ (i.\ e.\ some inscription over a set of points within M) and a collection of homeomorphisms $\phi_{\alpha}: U_{\alpha} \rightarrow \Omega_{\alpha}$ onto the open set $\Omega_{\alpha} \subset \Re^{m}$ (i.\ e.\ a continuous, and bijective (surjective and injective) mapping between two the two sets $U_{\alpha}$ and $\Omega_{\alpha}$). Such that, for each pair $\alpha, \beta \in A$, the transition map: $$\phi_{\beta \alpha}:= \phi_{\beta}\circ\phi_{\alpha}^{-1}:\phi_{\alpha}(U_{\alpha}\cap U_{\beta})\rightarrow \phi_{\beta}(U_{\alpha}\cap U_{\beta})$$ is smooth.
+\end{definition}
+
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=0.5\linewidth]{frog.jpg}
+%     \caption{Caption}
+%     \label{fig:smooth_manifolds}
+% \end{figure}
+
+The homeomorphisms $\phi_{\alpha}$ are called `coordinate charts' and the collection $A:= \{U_{\alpha}, \phi_{\alpha}\}_{\alpha \in A}$ is called an `atlas'.
+
+\begin{remark}
+        Compatibility: A homeomorphism $\phi_{c}: U_{c} \rightarrow \Omega$ from the open subset $U_{c}\subset M$ to $\Omega_{c}\subset \Re^{m}$ is compatible with atlas $A:=\{U_{\alpha}, \phi_{\alpha}\}_{\alpha \in A}$ iff: $$\phi_{\alpha}\circ \phi_{c}^{-1}: \phi_{c}(U_{c}\cap U_{\alpha}) \rightarrow \phi_{\alpha}(U_{c} \cap U_{\alpha})$$
+        is a diffeomorphism\footnote{An isomorphism of differentiable manifolds; that is, it is a mapping that is structure preserving and has an inverse.} for each $\alpha$.
+\end{remark}
+\begin{remark}
+        Smooth structure: An atlas $A$ is called maximal if it contains every coordinate chart that is compatible with all its members.
+\end{remark}
+
+\begin{definition}
+        Smooth maps:
+        Define two manifolds $M$ and $N$ along with their corresponding atlases as: $(M, \{ \phi_{\alpha}, U_{\alpha} \}_{\alpha \in A})$ and $(N, \{ \psi_{\beta}, U_{\beta} \} _{\beta \in B})$. \\A map $f: M \rightarrow N$ is called smooth if it is continuous and the map $f_{\beta, \alpha}$ is smooth for $\forall \alpha \in A, \beta \in B$. \\
+        
+\end{definition}
+
+\subsection{Tangent Spaces}
+\begin{definition}
+        Suppose a manifold $M$ equipped with an atlas $A$ such that we have the usual representation $(M, \{ \phi_{\alpha}, U_{\alpha} \}_{\alpha \in A})$. We can therefore define the tangent space of $M$ at a point $p$ as the following quotient space\footnote{Lets decompose this to make the concept more concrete, firstly the idea of a quotient space. Consider a space $X$, there are equivalence classes between some $x \in X$, where an equivalence relation is given $\sim$. we can $\therefore$ construct the \emph{set} of different equivalence classes of $X$ via $Y = X/\sim$, this is the canonical topological quotient space. Hence the tangent space of a manifold is defined in the equation as the cross product between the set of the union of points $\alpha$ in the open set $U_{\alpha}$, and the set $\Re^{m}$ modulo the equivalence relations of the point $p$, $\sim^{p}$, leaving us with the set of different equivalence classes of the cross product between the union of open sets $\bigcup_{p\in U_{\alpha}}$ and $\Re^{m}$.}: $$T_{p}M := \bigcup_{p\in U_{\alpha}}\{\alpha \} \times  \Re^{m}/\sim^{p}$$
+\end{definition}
+
+\bibliographystyle{alpha}
+\bibliography{references}
+
+\end{document}
